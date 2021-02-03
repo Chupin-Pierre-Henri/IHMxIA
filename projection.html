@@ -24,7 +24,7 @@
     let metaData
 
     async function load_data_light() {
-        return await d3.csv("projection.csv")
+        return await d3.csv("https://raw.githubusercontent.com/Chupin-Pierre-Henri/IHMxIA/main/projection.csv")
     }
 
 
@@ -47,11 +47,12 @@
 
 
     async function plot(svg, data) {
-        let [x, y] = await new Promise(res => res(get_scales(data.map(d => [d["x"], d["y"]]))));
+        let [x, y] = await new Promise(res => res(get_scales(data.map(d => [parseFloat(d["x"]), parseFloat(d["y"])]))));
 
 
         let colScale = function (d) {
-            return "steelblue"
+            let colors = ["#ff0000","#40ff00","#8000ff","#0040ff","#ffff00"]
+            return colors[d]
         }
 
         if (data[0]["args"]) {
